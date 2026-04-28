@@ -1,34 +1,149 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Confirming your Metriq account...</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metriq — Email Confirmed</title>
+
   <style>
-    body{margin:0;background:#030D1A;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;}
-    .box{text-align:center;color:#F1F5F9;padding:40px 24px;max-width:400px;}
-    .logo{width:80px;height:80px;border-radius:16px;margin:0 auto 32px;display:block;}
-    .spinner{width:48px;height:48px;border:3px solid rgba(37,99,235,0.2);border-top:3px solid #2563EB;border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 28px;}
-    @keyframes spin{to{transform:rotate(360deg);}}
-    h2{font-size:28px;font-weight:700;margin:0 0 12px;letter-spacing:-0.5px;}
-    p{color:#64748B;font-size:17px;margin:0;line-height:1.6;}
+    body {
+      margin: 0;
+      background: #030D1A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .box {
+      text-align: center;
+      color: #F1F5F9;
+      padding: 40px 24px;
+      max-width: 420px;
+    }
+
+    .logo {
+      width: 84px;
+      height: 84px;
+      border-radius: 18px;
+      margin: 0 auto 28px;
+      display: block;
+      object-fit: cover;
+      box-shadow: 0 0 32px rgba(37, 99, 235, 0.25);
+    }
+
+    .check {
+      width: 76px;
+      height: 76px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 2px solid rgba(16, 185, 129, 0.45);
+      color: #10B981;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 36px;
+      font-weight: 800;
+      animation: pop 0.4s ease;
+    }
+
+    @keyframes pop {
+      from {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      font-size: 30px;
+      font-weight: 800;
+      margin: 0 0 12px;
+      letter-spacing: -0.6px;
+    }
+
+    p {
+      color: #94A3B8;
+      font-size: 16px;
+      margin: 0 0 32px;
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #2563EB;
+      color: #FFFFFF;
+      padding: 15px 34px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 0 28px rgba(37, 99, 235, 0.42);
+    }
+
+    .manual {
+      margin-top: 18px;
+      font-size: 13px;
+      color: #64748B;
+      line-height: 1.5;
+    }
   </style>
 </head>
+
 <body>
   <div class="box">
-    <img class="logo" src="https://qqxijutohmoaofzwzqqo.supabase.co/storage/v1/object/public/assets/LOGO.jpeg" alt="Metriq"/>
-    <div class="spinner"></div>
-    <h2>Opening Metriq...</h2>
-    <p>Redirecting you back to the app.</p>
+    <img
+      class="logo"
+      src="https://qqxijutohmoaofzwzqqo.supabase.co/storage/v1/object/public/assets/LOGO.jpeg"
+      alt="Metriq"
+    />
+
+    <div class="check">✓</div>
+
+    <h1>Email confirmed!</h1>
+
+    <p>
+      Your Metriq account is ready.<br />
+      Return to the app and sign in to get started.
+    </p>
+
+    <button class="btn" onclick="openApp()">Open Metriq</button>
+
+    <div class="manual" id="manualText">
+      If the app does not open, return to Metriq and sign in manually.
+    </div>
   </div>
+
   <script>
-    const hash = window.location.hash;
-    const params = new URLSearchParams(hash.replace('#','?'));
-    const token = params.get('access_token');
-    if(token){
-      window.location.href = 'metriqmobile://auth/confirmed' + hash;
-    } else {
-      window.location.href = 'metriqmobile://auth/sign-in';
+    const hash = window.location.hash || "";
+    const search = window.location.search || "";
+
+    function getTokenPayload() {
+      if (hash && hash.length > 1) return hash;
+      if (search && search.length > 1) return "#" + search.slice(1);
+      return "";
+    }
+
+    function openApp() {
+      const payload = getTokenPayload();
+
+      if (payload) {
+        window.location.href = "metriqmobile://auth/confirmed" + payload;
+      } else {
+        window.location.href = "metriqmobile://auth/sign-in";
+      }
+
+      setTimeout(() => {
+        document.getElementById("manualText").textContent =
+          "If Metriq did not open, return to the app and sign in manually.";
+      }, 2000);
     }
   </script>
 </body>
