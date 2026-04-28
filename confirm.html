@@ -122,23 +122,8 @@
   </div>
 
   <script>
-    const hash = window.location.hash || "";
-    const search = window.location.search || "";
-
-    function getTokenPayload() {
-      if (hash && hash.length > 1) return hash;
-      if (search && search.length > 1) return "#" + search.slice(1);
-      return "";
-    }
-
     function openApp() {
-      const payload = getTokenPayload();
-
-      if (payload) {
-        window.location.href = "metriqmobile://auth/confirmed" + payload;
-      } else {
-        window.location.href = "metriqmobile://auth/sign-in";
-      }
+      window.location.href = "metriqmobile://auth/sign-in";
 
       setTimeout(() => {
         document.getElementById("manualText").textContent =
