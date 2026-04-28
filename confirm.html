@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>Confirming your Metriq account...</title>
+  <style>
+    body{margin:0;background:#030D1A;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:sans-serif;}
+    .box{text-align:center;color:#F1F5F9;}
+    .box p{color:#64748B;margin-top:8px;}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Opening Metriq...</h2>
+    <p>Redirecting you back to the app.</p>
+  </div>
+  <script>
+    const hash = window.location.hash;
+    const params = new URLSearchParams(hash.replace('#','?'));
+    const token = params.get('access_token');
+    const type = params.get('type');
+    if(token){
+      window.location.href = 'metriqmobile://auth/confirmed' + hash;
+    } else {
+      window.location.href = 'metriqmobile://auth/sign-in';
+    }
+  </script>
+</body>
+</html>
