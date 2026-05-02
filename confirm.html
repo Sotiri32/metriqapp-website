@@ -114,21 +114,17 @@
       Return to the app and sign in to get started.
     </p>
 
-    <button class="btn" onclick="openApp()">Open Metriq</button>
+    <button class="btn" onclick="showManualInstructions()">Return to Metriq manually</button>
 
     <div class="manual" id="manualText">
-      If the app does not open, return to Metriq and sign in manually.
+      Email confirmed. Go back to Expo Go, open Metriq, and sign in manually.
     </div>
   </div>
 
   <script>
-    function openApp() {
-      window.location.href = "metriqmobile://auth/sign-in";
-
-      setTimeout(() => {
-        document.getElementById("manualText").textContent =
-          "If Metriq did not open, return to the app and sign in manually.";
-      }, 2000);
+    function showManualInstructions() {
+      document.getElementById("manualText").textContent =
+        "Return to Expo Go, open Metriq, and sign in with your confirmed email.";
     }
   </script>
 </body>
